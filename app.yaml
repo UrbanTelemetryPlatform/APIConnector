@@ -1,3 +1,7 @@
 runtime: go
-env: flex
+api_version: go1
 service: apiconnector
+
+handlers:
+- url: /.*
+  script: _go_app

@@ -1,0 +1,5 @@
+cron:
+- description: "regular API data load"
+  url: /api/read
+  target: apiconnector
+  schedule: every 10 minutes
