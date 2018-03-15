@@ -70,12 +70,11 @@ func readAPI(w http.ResponseWriter, r *http.Request) {
 		result := topic.Publish(ctx, &pubsub.Message{
 			Data: messageData,
 		})
-		_ = result
-		/*_, err := result.Get(ctx)
+
+		_, err := result.Get(ctx)
 		if err == nil {
 			messageCnt++
-		}*/
-		messageCnt++
+		}
 	}
 
 	fmt.Fprintf(w, "Published %v messages successfully\n", messageCnt)
