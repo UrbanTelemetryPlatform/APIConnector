@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"time"
 
 	"cloud.google.com/go/pubsub"
@@ -90,7 +91,8 @@ func readAPI(w http.ResponseWriter, r *http.Request) {
 
 		message := sjson.New()
 
-		segmentID, _ := entry.Get("segmentid").Int()
+		segmentIDStr, _ := entry.Get("segmentid").String()
+		segmentIDInt, _ := strconv.Atoi(segmentIDStr)
 		speed, _ := entry.Get("_traffic").Int()
 		timeStr, err := entry.Get("_last_updt").String()
 		timestamp, err := time.Parse(tsAPILayout, timeStr)
@@ -106,7 +108,7 @@ func readAPI(w http.ResponseWriter, r *http.Request) {
 
 		message.Set("TIME", timestamp.Format(tsMessageFormat)+" -05:00")
 
-		message.Set("SEGMENTID", segmentID)
+		message.Set("SEGMENTID", segmentIDInt)
 		message.Set("BUS_COUNT", 1)
 		message.Set("MESSAGE_COUNT", 1)
 		message.Set("SPEED", speed)
