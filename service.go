@@ -93,7 +93,8 @@ func readAPI(w http.ResponseWriter, r *http.Request) {
 
 		segmentIDStr, _ := entry.Get("segmentid").String()
 		segmentIDInt, _ := strconv.Atoi(segmentIDStr)
-		speed, _ := entry.Get("_traffic").Int()
+		speedStr, _ := entry.Get("_traffic").String()
+		speedInt, _ := strconv.Atoi(speedStr)
 		timeStr, err := entry.Get("_last_updt").String()
 		timestamp, err := time.Parse(tsAPILayout, timeStr)
 
@@ -111,7 +112,7 @@ func readAPI(w http.ResponseWriter, r *http.Request) {
 		message.Set("SEGMENTID", segmentIDInt)
 		message.Set("BUS_COUNT", 1)
 		message.Set("MESSAGE_COUNT", 1)
-		message.Set("SPEED", speed)
+		message.Set("SPEED", speedInt)
 
 		messageData, err := message.MarshalJSON()
 		if err != nil {

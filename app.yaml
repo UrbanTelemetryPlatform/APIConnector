@@ -1,7 +1,7 @@
 runtime: go
 api_version: go1
 env: standard
-service: apiconnector
+service: service-apiconnector
 
 handlers:
 - url: /.*
